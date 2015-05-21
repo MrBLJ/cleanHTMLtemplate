@@ -1,0 +1,93 @@
+/* Set a rem font size with pixel fallback */
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+/* transformations */
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+/* transitions */
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+/* border box */
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+
+/* box shadow */
+@mixin box-shadow($params) {
+  -webkit-box-shadow : #{$params};
+  -moz-box-shadow : #{$params};
+  -ms-box-shadow: #{$params};
+  -o-box-shadow: #{$params};
+  box-shadow : #{$params};
+}
+
+/* border-radius */
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+/* gradients */
+@mixin linear-gradient($start-color: #555, $end-color: #333, $deg: 45deg) {
+  background-repeat: repeat-x;
+    background: $start-color;
+    background: -webkit-linear-gradient($deg, $start-color, $end-color); 
+    background: -o-linear-gradient($deg, $start-color, $end-color); 
+    background: linear-gradient($deg, $start-color, $end-color);
+}
+
+/* media queries*/
+@mixin bp-large {
+  @media only screen and (max-width: 60em) {
+    @content;
+  }
+}
+
+@mixin bp-medium {
+  @media only screen and (max-width: 40em) {
+    @content;
+  }
+}
+
+@mixin bp-small {
+  @media only screen and (max-width: 30em) {
+    @content;
+  }
+}
+
+/* clearfix hack (way to contain floats without resorting to using presentational markup )*/
+%clearfix {
+    *zoom: 1;
+    &:before, 
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}

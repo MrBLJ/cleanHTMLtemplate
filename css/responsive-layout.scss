@@ -1,0 +1,107 @@
+/* variables */
+
+// grid variables
+$grid-columns: 12;
+$grid-max-width: 100em;
+
+/* mixins */
+@import "mixins";
+
+/* breakpoints */
+@mixin bp-large {
+  @media only screen and (min-width: 90em) {
+    @content;
+  }
+}
+
+@mixin bp-medium {
+  @media only screen and (min-width: 45em) {
+    @content;
+  }
+}
+
+@mixin bp-small {
+  @media only screen and (min-width: 30em) {
+    @content;
+  }
+}
+
+/* global reset and box-sizing rule */
+*,
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+ 
+    @include border-box;
+}
+
+/* set wrapper size */
+.wrapper {
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+    width: 100%;
+    max-width: $grid-max-width; 
+}
+
+/* apply clearfix */
+.wrapper,
+.row {
+    @extend %clearfix;
+}
+
+[class*='column-'] {
+    float: left;
+    padding: 1em;
+    width: 100%;
+    min-height: 1px; 
+}   
+
+/* defines colum size */
+//Not responsive
+@for $i from 1 through 12 {
+    .column-#{$i} { 
+    	width: 100% / $grid-columns * $i;
+    }
+    .offset-#{$i} { 
+    	margin-left: 100% / $grid-columns * $i;
+    }
+}
+
+//Large
+@include bp-large {
+	@for $i from 1 through 12 {
+	    .column-large-#{$i} { 
+	    	width: 100% / $grid-columns * $i;
+	    }
+	}
+	.wrapper {
+		width: 1160px;
+    @include bp-large {@include border-radius(5px);}
+	}
+}
+
+//Medium
+
+@include bp-medium {
+	@for $i from 1 through 12 {
+	    .column-medium-#{$i} { 
+	    	width: 100% / $grid-columns * $i;
+	    }
+	}
+}
+
+//Small
+@include bp-small {
+	@for $i from 1 through 12 {
+	    .column-small-#{$i} { 
+	    	width: 100% / $grid-columns * $i;
+	    }
+	}
+
+  .hidden-small {
+    display: none;
+  }
+}
